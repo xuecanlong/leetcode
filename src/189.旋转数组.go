@@ -49,5 +49,21 @@ func rotate(nums []int, k int) {
 	//nums = append(nums[length-k:], nums[:length-k]...)
 	copy(nums,append(nums[length-k:], nums[:length-k]...))
 }
+
+func rotate(nums []int, k int) {
+	// 整个反转
+	reverse(nums)
+	// 前面反转
+	reverse(nums[:k%len(nums)])
+	// 后面反转
+	reverse(nums[k%len(nums):])
+}
+
+func reverse(arr []int) {
+	for i := 0; i < len(arr)/2; i++ {
+		arr[i], arr[len(arr)-i-1] = arr[len(arr)-i-1], arr[i]
+	}
+}
+
 // @lc code=end
 

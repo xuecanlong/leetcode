@@ -45,23 +45,26 @@
 
 // @lc code=start
 func intersect(nums1 []int, nums2 []int) []int {
-	m := map[int]int{}
-	for _, num := range nums1 {
-		if count, ok := m[num]; !ok {
-			m[num] = 1
+	i, j, k := 0, 0, 0
+	sort.Ints(nums1)
+	sort.Ints(nums2)
+	for i < len(nums1) && j < len(nums2) {
+		if nums1[i] > nums2[j] {
+			j++
+		} else if nums1[i] < nums2[j] {
+			i++
 		} else {
-			m[num] = count + 1
+			nums1[k] = nums1[i]
+			i++
+			j++
+			k++
 		}
 	}
-	var res []int
-	for _, num := range nums2 {
-		if count, ok := m[num]; ok && count > 0 {
-			m[num] = count - 1
-			res = append(res, num)
-		}
-	}
-	return res
+	return nums1[:k]
 }
+
+
+
 
 // Q1:
 // 如果给定的数组已经排好序呢？你将如何优化你的算法？
